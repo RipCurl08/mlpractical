@@ -14,6 +14,4 @@ This branch contains the python code and latex files of the first coursework. Th
  * Detailed instructions are given in MLP2024_25_CW1_Spec.pdf (see Learn, Assessment, CW1).
  * The [report directory](https://github.com/VICO-UoE/mlpractical/tree/mlp2024-25/coursework1/report) contains the latex files that you will use to create your report.
 
-
-
-Hi
+Hello again
