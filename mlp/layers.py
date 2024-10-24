@@ -664,10 +664,10 @@ class DropoutLayer(StochasticLayer):
 
         if stochastic:
             if self.share_across_batch:
-                mask = self.rng.binomial(1,self.incl_prob,(1,inputs.shape[1]))
+                mask = self.rng.binomial(1,self.incl_prob,(1,)+inputs.shape[1:]).astype(float)
                 mask = np.repeat(mask,inputs.shape[0],axis=0)
             else:
-                mask = self.rng.binomial(1,self.incl_prob,inputs.shape)
+                mask = self.rng.binomial(1,self.incl_prob,inputs.shape).astype(float)
             self.mask = mask
             return inputs * mask
         else:
