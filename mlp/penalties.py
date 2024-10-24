@@ -29,6 +29,9 @@ class L1Penalty(object):
         Returns:
             Value of penalty term.
         """
+
+        
+
         raise NotImplementedError
 
     def grad(self, parameter):
@@ -41,6 +44,7 @@ class L1Penalty(object):
             Value of penalty gradient with respect to parameter. This
             should be an array of the same shape as the parameter.
         """
+
         raise NotImplementedError
 
     def __repr__(self):

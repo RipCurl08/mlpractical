@@ -664,14 +664,14 @@ class DropoutLayer(StochasticLayer):
 
         if stochastic:
             if self.share_across_batch:
-                mask = self.rng.binomial(1,self.incl_prob,(1,)+inputs.shape[1:]).astype(float)
-                mask = np.repeat(mask,inputs.shape[0],axis=0)
+                mask = self.rng.binomial(1,self.incl_prob,(1,)+inputs.shape[1:]).astype(float) # Generate single mask
+                mask = np.repeat(mask,inputs.shape[0],axis=0) # Copy mask over entire batch
             else:
-                mask = self.rng.binomial(1,self.incl_prob,inputs.shape).astype(float)
-            self.mask = 1- mask
-            return inputs * self.mask
+                mask = self.rng.binomial(1,self.incl_prob,inputs.shape).astype(float) # Generate mask for every element
+            self.mask = 1 - mask  # Invert and store mask (Because it is applied as exclusion probabilities)
+            return inputs * self.mask # Apply mask
         else:
-            return inputs * self.incl_prob
+            return inputs * self.incl_prob # Scale by inclusion probability if not masking
 
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
@@ -692,7 +692,7 @@ class DropoutLayer(StochasticLayer):
             (batch_size, input_dim).
         """
 
-        return grads_wrt_outputs * self.mask
+        return grads_wrt_outputs * self.mask # Apply mask to backpropogation gradients
 
     def __repr__(self):
         return 'DropoutLayer(incl_prob={0:.1f})'.format(self.incl_prob)
