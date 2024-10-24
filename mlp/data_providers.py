@@ -297,7 +297,7 @@ class EMNISTDataProvider(DataProvider):
         """
 
         smooth_one_of_k_targets = np.zeros((int_targets.shape[0], self.num_classes))
-        smooth_one_of_k_targets[:] = alpha/(self.num_classes)
+        smooth_one_of_k_targets[:] = alpha/(self.num_classes-1)
         smooth_one_of_k_targets[range(int_targets.shape[0]), int_targets] = 1 - alpha
         return smooth_one_of_k_targets
   
