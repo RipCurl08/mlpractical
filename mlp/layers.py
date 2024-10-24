@@ -661,12 +661,11 @@ class DropoutLayer(StochasticLayer):
         Returns:
             outputs: Array of layer outputs of shape (batch_size, output_dim).
         """
-        
+
         if stochastic == True:
             mask = (np.random.rand(inputs.shape) < self.incl_prob)
-            return inputs * self.mask / self.incl_prob
+            return inputs * mask / self.incl_prob
         elif stochastic == False:
-            # During inference, no dropout is applied (just return the input)
             return inputs
 
     def bprop(self, inputs, outputs, grads_wrt_outputs):
