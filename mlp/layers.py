@@ -644,7 +644,7 @@ class DropoutLayer(StochasticLayer):
         assert incl_prob > 0. and incl_prob <= 1.
         self.incl_prob = incl_prob
         self.share_across_batch = share_across_batch
-        self.rng = rng
+        # self.rng = rng
 
     def fprop(self, inputs, stochastic=True):
         """Forward propagates activations through the layer transformation.

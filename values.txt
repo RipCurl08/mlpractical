@@ -1,0 +1,12 @@
+Dropout:
+    with single dropout after 1st hidden layer: Val acc: 0.7570886075949367, Train Error: 1.346028309606973, Val Error: 1.4078587151642548
+    With single dropout after 2nd hidden layer: Val acc: 0.8257594936708857, Train Error: 1.0689395794117689, Val Error: 1.2578207952369003
+    With prob=0.3 at 2nd layer: Val acc: 0.8371518987341773, Train Error: 0.9495124256863192, Val Error: 1.1258271430826388
+    Without input smoothing: Val acc: 0.8274050632911388, Train Error: 0.3582344707208054, Val Error: 0.6942866521321248
+
+L1:
+    Val acc: 0.7422151898734177, Train Error: 1.5111802625457087, Val Error: 1.5185396588854057
+
+L2:
+    Val acc: 0.8584177215189873, Train Error: 1.0776919486085559, Val Error: 1.1153587197746566
+    Withou input smoothing: Val acc: 0.853987341772152, Train Error: 0.37107221059138834, Val Error: 0.43424534042188867
