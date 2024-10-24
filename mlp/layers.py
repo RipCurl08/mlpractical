@@ -663,7 +663,7 @@ class DropoutLayer(StochasticLayer):
         """
         
         if stochastic == True:
-            self.mask = (np.random.rand(inputs.shape) < self.incl_prob)
+            mask = (np.random.rand(inputs.shape) < self.incl_prob)
             return inputs * self.mask / self.incl_prob
         elif stochastic == False:
             # During inference, no dropout is applied (just return the input)
