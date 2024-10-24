@@ -75,7 +75,7 @@ class L2Penalty(object):
             Value of penalty term.
         """
 
-        return self.coefficient*(np.sum(parameter**2))
+        return self.coefficient*np.sum(parameter**2)/2
 
     def grad(self, parameter):
         """Calculate the penalty gradient with respect to the parameter.
@@ -87,7 +87,7 @@ class L2Penalty(object):
             Value of penalty gradient with respect to parameter. This
             should be an array of the same shape as the parameter.
         """
-        return 2*self.coefficient*parameter
+        return self.coefficient*parameter
 
     def __repr__(self):
         return 'L2Penalty({0})'.format(self.coefficient)
