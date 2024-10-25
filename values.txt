@@ -6,6 +6,7 @@ Dropout:
 
 L1:
     Val acc: 0.7422151898734177, Train Error: 1.5111802625457087, Val Error: 1.5185396588854057
+    L1 rerun without smoothing: Val acc: 0.7636075949367088, Train Error: 0.7552094438596266, Val Error: 0.7765874761297045
 
 L2:
     Val acc: 0.8584177215189873, Train Error: 1.0776919486085559, Val Error: 1.1153587197746566
