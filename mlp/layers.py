@@ -644,7 +644,7 @@ class DropoutLayer(StochasticLayer):
         assert incl_prob > 0. and incl_prob <= 1.
         self.incl_prob = incl_prob
         self.share_across_batch = share_across_batch
-        self.rng = rng
+        # self.rng = rng
 
     def fprop(self, inputs, stochastic=True):
         """Forward propagates activations through the layer transformation.
@@ -661,7 +661,17 @@ class DropoutLayer(StochasticLayer):
         Returns:
             outputs: Array of layer outputs of shape (batch_size, output_dim).
         """
-        raise NotImplementedError
+
+        if stochastic:
+            if self.share_across_batch:
+                mask = self.rng.binomial(1,self.incl_prob,(1,)+inputs.shape[1:]).astype(float) # Generate single mask
+                mask = np.repeat(mask,inputs.shape[0],axis=0) # Copy mask over entire batch
+            else:
+                mask = self.rng.binomial(1,self.incl_prob,inputs.shape).astype(float) # Generate mask for every element
+            self.mask = 1 - mask  # Invert and store mask (Because it is applied as exclusion probabilities)
+            return inputs * self.mask # Apply mask
+        else:
+            return inputs * self.incl_prob # Scale by inclusion probability if not masking
 
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
@@ -681,7 +691,8 @@ class DropoutLayer(StochasticLayer):
             Array of gradients with respect to the layer inputs of shape
             (batch_size, input_dim).
         """
-        raise NotImplementedError
+
+        return grads_wrt_outputs * self.mask # Apply mask to backpropogation gradients
 
     def __repr__(self):
         return 'DropoutLayer(incl_prob={0:.1f})'.format(self.incl_prob)
